@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion'
 import { ArrowUpRight, MapPin, Navigation, Phone } from 'lucide-react'
 import { SectionHeading } from '@/components/SectionHeading'
+import { Reveal } from '@/components/Reveal'
+import { STAGGER } from '@/lib/motion'
 import { site } from '@/lib/site'
 
 export function Contact() {
@@ -17,18 +18,12 @@ export function Contact() {
 
         <div className="mt-16 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           {/* Details */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-5"
-          >
+          <Reveal className="flex flex-col gap-5">
             <a
               href={site.phoneHref}
-              className="glass-panel group relative overflow-hidden rounded-2xl p-7 transition-all duration-400 hover:border-electric-400/40"
+              className="pressable glass-panel group relative block overflow-hidden rounded-2xl p-7 transition-[border-color,transform] duration-200 ease-out hover:border-electric-400/40"
             >
-              <div className="pointer-events-none absolute -right-12 -top-12 size-40 rounded-full bg-electric-500/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute -right-12 -top-12 size-40 rounded-full bg-electric-500/25 opacity-0 blur-3xl transition-opacity duration-300 ease-out group-hover:opacity-100" />
               <div className="relative z-10 flex items-start gap-5">
                 <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-electric-500/12 text-electric-400 ring-1 ring-electric-400/25">
                   <Phone className="size-5" />
@@ -44,7 +39,7 @@ export function Contact() {
                     Apasă pentru a suna direct
                   </p>
                 </div>
-                <ArrowUpRight className="ml-auto size-5 shrink-0 text-white/30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                <ArrowUpRight className="ml-auto size-5 shrink-0 text-white/30 transition-[color,translate] duration-200 ease-out-strong group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
               </div>
             </a>
 
@@ -67,19 +62,16 @@ export function Contact() {
 
             <a
               href={site.phoneHref}
-              className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric-500 to-violetglow-500 px-8 py-4.5 font-semibold text-white shadow-[0_18px_45px_-14px] shadow-electric-500/70 transition-transform duration-300 hover:scale-[1.02] active:scale-[0.99]"
+              className="pressable inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric-500 to-violetglow-500 px-8 py-4.5 font-semibold text-white shadow-[0_18px_45px_-14px] shadow-electric-500/70"
             >
               <Navigation className="size-4.5" />
               Rezervă acum
             </a>
-          </motion.div>
+          </Reveal>
 
           {/* Map */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          <Reveal
+            delay={STAGGER}
             className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-1.5"
           >
             <iframe
@@ -90,7 +82,7 @@ export function Contact() {
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full min-h-[400px] rounded-xl border-0"
             />
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

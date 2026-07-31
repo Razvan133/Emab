@@ -1,8 +1,9 @@
 import type { ComponentType } from 'react'
-import { motion } from 'framer-motion'
 import { CircleDot, Gamepad2, Target, UtensilsCrossed } from 'lucide-react'
 import { GlowCard } from '@/components/ui/spotlight-card'
 import { SectionHeading } from '@/components/SectionHeading'
+import { Reveal } from '@/components/Reveal'
+import { STAGGER } from '@/lib/motion'
 
 type GlowColor = 'blue' | 'purple' | 'green' | 'red' | 'orange'
 
@@ -70,17 +71,7 @@ export function Activities() {
           {activities.map((activity, index) => {
             const Icon = activity.icon
             return (
-              <motion.div
-                key={activity.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
+              <Reveal key={activity.title} delay={index * STAGGER} distance={24}>
                 <GlowCard
                   customSize
                   glowColor={activity.glowColor}
@@ -110,7 +101,7 @@ export function Activities() {
                     </span>
                   </div>
                 </GlowCard>
-              </motion.div>
+              </Reveal>
             )
           })}
         </div>

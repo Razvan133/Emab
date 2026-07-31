@@ -48,7 +48,7 @@ export function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-white/55 transition-colors hover:text-white"
+                className="text-sm text-white/55 transition-colors duration-200 ease-out hover:text-white"
               >
                 {link.label}
               </a>
@@ -64,7 +64,7 @@ export function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="grid size-10 place-items-center rounded-full border border-white/12 bg-white/5 text-white/60 transition-all duration-300 hover:border-electric-400/50 hover:bg-electric-500/10 hover:text-white"
+                  className="pressable grid size-10 place-items-center rounded-full border border-white/12 bg-white/5 text-white/60 transition-[color,background-color,border-color,transform] duration-200 ease-out hover:border-electric-400/50 hover:bg-electric-500/10 hover:text-white"
                 >
                   <Icon className="size-4.5" />
                 </a>
@@ -73,7 +73,7 @@ export function Footer() {
             <div className="flex flex-col items-center gap-1.5 text-sm text-white/45 md:items-end">
               <a
                 href={site.phoneHref}
-                className="inline-flex items-center gap-2 transition-colors hover:text-white"
+                className="inline-flex items-center gap-2 transition-colors duration-200 ease-out hover:text-white"
               >
                 <Phone className="size-3.5" />
                 {site.phone}

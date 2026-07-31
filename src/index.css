@@ -18,6 +18,14 @@
   --color-electric-600: #2563eb;
   --color-violetglow-400: #a78bfa;
   --color-violetglow-500: #8b5cf6;
+
+  /* Motion. The built-in CSS easings are too weak to read as intentional,
+     so every transition uses one of these instead. */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  /* Gravity. Only ever used for the falling ball, never for UI. */
+  --ease-fall: cubic-bezier(0.55, 0, 1, 0.45);
 }
 
 @layer base {
@@ -98,8 +106,33 @@
   border: 1px solid rgb(255 255 255 / 0.1);
 }
 
+/* Press feedback. Anything the user can click should acknowledge the press
+   within ~150ms, otherwise the interface feels like it isn't listening. */
+@utility pressable {
+  transition: transform 150ms var(--ease-out-strong);
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Reduced motion means fewer and gentler animations, not zero: opacity and
+   colour still carry meaning, movement is what causes trouble. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .pressable:active {
+    transform: none;
   }
 }

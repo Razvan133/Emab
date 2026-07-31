@@ -1,7 +1,8 @@
 import type { ComponentType } from 'react'
-import { motion } from 'framer-motion'
 import { PenTool, Palette, TrendingUp } from 'lucide-react'
 import { SectionHeading } from '@/components/SectionHeading'
+import { Reveal } from '@/components/Reveal'
+import { STAGGER } from '@/lib/motion'
 
 interface Member {
   role: string
@@ -51,22 +52,20 @@ export function Team() {
           {team.map((member, index) => {
             const Icon = member.icon
             return (
-              <motion.article
+              /* The lift is a plain CSS transition rather than whileHover: it
+                 runs off the main thread and Tailwind already gates `hover:`
+                 behind `@media (hover: hover)`, so touch devices don't get a
+                 sticky hover state on tap. */
+              <Reveal
                 key={member.role}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.12,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileHover={{ y: -8 }}
-                className="glass-panel group relative overflow-hidden rounded-2xl p-8 transition-colors duration-500 hover:border-white/20"
+                as="article"
+                delay={index * STAGGER}
+                distance={24}
+                className="glass-panel group relative overflow-hidden rounded-2xl p-8 transition-[border-color,translate] duration-200 ease-out-strong hover:border-white/20 hover:-translate-y-2"
               >
                 {/* Hover wash */}
                 <div
-                  className={`pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-gradient-to-br ${member.glow} to-transparent opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
+                  className={`pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-gradient-to-br ${member.glow} to-transparent opacity-0 blur-3xl transition-opacity duration-300 ease-out group-hover:opacity-100`}
                 />
                 {/* Top hairline */}
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
@@ -90,7 +89,7 @@ export function Team() {
                     Emab Team
                   </div>
                 </div>
-              </motion.article>
+              </Reveal>
             )
           })}
         </div>
