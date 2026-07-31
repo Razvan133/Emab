@@ -24,10 +24,18 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/8 bg-ink-950">
+    <footer className="relative overflow-hidden border-t border-white/8 bg-ink-950">
       <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full bg-electric-600/10 blur-[100px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-14 lg:px-10">
+      {/* the venue's name as the room's back wall */}
+      <p
+        aria-hidden
+        className="text-outline pointer-events-none absolute inset-x-0 -bottom-[0.18em] select-none whitespace-nowrap text-center font-display text-[clamp(4rem,14vw,13rem)] font-extrabold leading-none tracking-tight"
+      >
+        EMAB
+      </p>
+
+      <div className="relative mx-auto max-w-7xl px-6 py-14 pb-28 lg:px-10 lg:pb-36">
         <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between">
           <div className="text-center md:text-left">
             <a href="#top" className="inline-flex items-center gap-3">

@@ -2,40 +2,28 @@ import { Reveal } from '@/components/Reveal'
 import { STAGGER } from '@/lib/motion'
 
 interface SectionHeadingProps {
-  eyebrow: string
   title: string
-  description?: string
+  lead?: string
   align?: 'left' | 'center'
 }
 
-export function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  align = 'center',
-}: SectionHeadingProps) {
+/** Section openers: the heading carries its own weight — no eyebrow labels. */
+export function SectionHeading({ title, lead, align = 'left' }: SectionHeadingProps) {
   const alignment =
-    align === 'center' ? 'mx-auto text-center items-center' : 'text-left items-start'
+    align === 'center' ? 'mx-auto items-center text-center' : 'items-start text-left'
 
   return (
-    <div className={`flex max-w-2xl flex-col ${alignment}`}>
-      <Reveal distance={12}>
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-electric-400/90 backdrop-blur-md">
-          <span className="size-1.5 rounded-full bg-electric-400" />
-          {eyebrow}
-        </span>
-      </Reveal>
-
-      <Reveal delay={STAGGER}>
-        <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+    <div className={`flex max-w-3xl flex-col ${alignment}`}>
+      <Reveal distance={14}>
+        <h2 className="font-display text-[clamp(1.7rem,3.6vw,3.2rem)] font-bold leading-[1.12] tracking-[-0.02em] text-balance text-white">
           {title}
         </h2>
       </Reveal>
 
-      {description && (
-        <Reveal delay={STAGGER * 2}>
-          <p className="mt-5 text-base leading-relaxed text-white/55 sm:text-lg">
-            {description}
+      {lead && (
+        <Reveal delay={STAGGER}>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/55 sm:text-lg">
+            {lead}
           </p>
         </Reveal>
       )}

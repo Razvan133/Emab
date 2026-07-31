@@ -11,9 +11,8 @@ export function Contact() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeading
-          eyebrow="Contact & Locație"
           title="Ne găsești în centrul Bacăului"
-          description="Sună-ne pentru rezervări sau treci direct pe la noi — pistele te așteaptă."
+          lead="Sună-ne pentru rezervări sau treci direct pe la noi — pistele te așteaptă."
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">

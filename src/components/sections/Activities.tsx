@@ -58,16 +58,13 @@ const activities: Activity[] = [
 export function Activities() {
   return (
     <section id="activitati" className="relative py-24 lg:py-32">
-      <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-px w-[80%] -translate-x-1/2 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeading
-          eyebrow="Activități"
-          title="Patru moduri de a-ți face seara"
-          description="De la piste profesionale la un cocktail bine făcut — fiecare colț al localului e gândit pentru grupuri care vor să se distreze."
+          title="După strike, seara abia începe"
+          lead="Patru feluri de a rămâne: piste profesionale, ținte de darts, mese de foosball și un bar care știe ce face."
         />
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:gap-8">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:gap-8">
           {activities.map((activity, index) => {
             const Icon = activity.icon
             return (
@@ -75,7 +72,7 @@ export function Activities() {
                 <GlowCard
                   customSize
                   glowColor={activity.glowColor}
-                  className="h-full min-h-[19rem] w-full !p-7 sm:min-h-[21rem]"
+                  className="h-full min-h-[18rem] w-full !p-7"
                 >
                   <div className="relative z-10 flex flex-col">
                     <span
@@ -84,7 +81,7 @@ export function Activities() {
                       <Icon className="size-6" />
                     </span>
 
-                    <h3 className="mt-6 font-display text-2xl font-semibold leading-tight text-white">
+                    <h3 className="mt-6 font-display text-xl font-bold leading-snug text-white">
                       {activity.title}
                     </h3>
                     <p className="mt-3 text-[0.975rem] leading-relaxed text-white/70">
@@ -92,12 +89,9 @@ export function Activities() {
                     </p>
                   </div>
 
-                  <div className="relative z-10 flex items-center justify-between border-t border-white/10 pt-4">
+                  <div className="relative z-10 border-t border-white/10 pt-4">
                     <span className="text-xs font-medium uppercase tracking-widest text-white/50">
                       {activity.tag}
-                    </span>
-                    <span className="font-display text-xs font-semibold text-white/35">
-                      0{index + 1}
                     </span>
                   </div>
                 </GlowCard>
