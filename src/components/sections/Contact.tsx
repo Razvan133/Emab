@@ -11,7 +11,7 @@ export function Contact() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeading
-          title="Ne găsești pe Str. Republicii 194bis"
+          title="Ne găsești pe Str.&nbsp;Republicii 194bis"
           lead="Sună-ne pentru rezervări sau treci direct pe la noi — pistele te așteaptă."
         />
 

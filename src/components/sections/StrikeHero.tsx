@@ -280,10 +280,11 @@ export function StrikeHero() {
             aria-hidden
           />
 
-          {/* STRIKE. */}
+          {/* STRIKE — sits over the pin deck (biased right on sm+) so the word
+              lands where the impact happened, not in the middle of the page. */}
           <motion.div
             style={{ opacity: strikeOpacity, transform: strikeTransform }}
-            className="pointer-events-none absolute inset-x-0 top-[30%] z-30 text-center"
+            className="pointer-events-none absolute inset-x-0 top-[30%] z-30 text-center sm:left-[8%] sm:right-0 sm:top-[26%]"
             aria-hidden
           >
             <p className="font-display text-[clamp(4rem,13vw,10.5rem)] font-extrabold leading-none tracking-tight text-white [text-shadow:0_0_60px_rgb(59_130_246/0.65)]">
@@ -390,7 +391,12 @@ function HeroCopy({ container, item }: { container: Variants; item: Variants }) 
         cu un <span className="font-extrabold text-electric-400">strike</span>.
       </motion.h1>
 
-      <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+      {/* Capped short of the pin deck (biased to 58% on sm+) until the viewport
+          is wide enough that the deck sits clear of the text column. */}
+      <motion.p
+        variants={item}
+        className="mt-6 max-w-md text-base leading-relaxed text-white/60 sm:text-lg xl:max-w-xl"
+      >
         Piste profesionale, darts, fotbal de masă și un bar cu personalitate
         <span className="hidden sm:inline">
           {' '}— totul într-un singur loc, pe Str. Republicii 194bis, în Bacău
