@@ -82,7 +82,10 @@ function useScrollValue(
 
 function Pin({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 100" className={className} aria-hidden>
+    /* The base shadow is painted into the SVG instead of applied as a
+       drop-shadow filter: ten filtered layers all transforming at once was
+       the scene's heaviest per-frame cost on mobile. */
+    <svg viewBox="0 0 40 108" className={className} aria-hidden>
       <defs>
         <linearGradient id="pinBody" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#b9bec9" />
@@ -90,7 +93,13 @@ function Pin({ className }: { className?: string }) {
           <stop offset="70%" stopColor="#d4d9e3" />
           <stop offset="100%" stopColor="#9aa0ad" />
         </linearGradient>
+        <radialGradient id="pinShadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#000000" stopOpacity="0.65" />
+          <stop offset="60%" stopColor="#000000" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+        </radialGradient>
       </defs>
+      <ellipse cx="20" cy="100" rx="17" ry="6" fill="url(#pinShadow)" />
       <path
         d="M20 2c6 0 9 4 9 9 0 4-2 7-3 11-1 5 1 9 4 15 4 8 6 14 6 22 0 22-7 39-16 39S4 81 4 59c0-8 2-14 6-22 3-6 5-10 4-15-1-4-3-7-3-11 0-5 3-9 9-9Z"
         fill="url(#pinBody)"
@@ -130,8 +139,10 @@ function Lane() {
           <div className="absolute inset-y-0 left-0 w-[6%] bg-ink-950/90 shadow-[inset_0_0_14px_rgb(0_0_0/0.95)]" />
           <div className="absolute inset-y-0 right-0 w-[6%] bg-ink-950/90 shadow-[inset_0_0_14px_rgb(0_0_0/0.95)]" />
           {/* electric light lines just inside the gutters */}
-          <div className="light-flicker absolute inset-y-0 left-[7%] w-[3px] bg-gradient-to-t from-electric-500/0 via-electric-500 to-electric-400 shadow-[0_0_16px_3px_var(--color-electric-500)]" />
-          <div className="light-flicker absolute inset-y-0 right-[7%] w-[3px] bg-gradient-to-t from-electric-500/0 via-electric-500 to-electric-400 shadow-[0_0_16px_3px_var(--color-electric-500)] [animation-delay:120ms]" />
+          <div className="light-flicker absolute inset-y-0 left-[3%] w-[9%] bg-[linear-gradient(90deg,transparent,rgb(59_130_246/0.5),transparent)]" />
+          <div className="light-flicker absolute inset-y-0 left-[7%] w-[3px] bg-gradient-to-t from-electric-500/0 via-electric-500 to-electric-400" />
+          <div className="light-flicker absolute inset-y-0 right-[3%] w-[9%] bg-[linear-gradient(90deg,transparent,rgb(59_130_246/0.5),transparent)] [animation-delay:120ms]" />
+          <div className="light-flicker absolute inset-y-0 right-[7%] w-[3px] bg-gradient-to-t from-electric-500/0 via-electric-500 to-electric-400 [animation-delay:120ms]" />
           {/* guide arrows, small and dark like on a real lane */}
           <svg
             viewBox="0 0 100 26"
@@ -192,6 +203,7 @@ export function StrikeHero() {
     if (reduceMotion) return
     if (v >= 0.55 && !struckRef.current) {
       struckRef.current = true
+      if (window.matchMedia('(pointer: coarse)').matches) return
       shake.start({
         transform: [
           'translate3d(0,0,0)',
@@ -254,7 +266,12 @@ export function StrikeHero() {
 
           {/* the ball, foreground, ready to roll */}
           <motion.div
-            style={{ transform: ballTransform, opacity: ballOpacity, transformOrigin: '50% 100%' }}
+            style={{
+              transform: ballTransform,
+              opacity: ballOpacity,
+              transformOrigin: '50% 100%',
+              willChange: 'transform, opacity',
+            }}
             className="absolute bottom-[3vh] left-1/2 z-10 w-[19vh] max-w-[230px] -translate-x-1/2 sm:left-[58%] sm:w-[24vh]"
           >
             <motion.div
@@ -262,13 +279,20 @@ export function StrikeHero() {
               animate={{ opacity: 1, transform: 'translateY(0vh)' }}
               transition={{ duration: 0.65, ease: [0.55, 0, 1, 0.45], delay: 0.2 }}
             >
+              {/* Contact shadow as a painted gradient rather than a filter: it
+                  rides along inside the ball's own layer, so moving the ball
+                  never re-rasterises it. */}
+              <div
+                aria-hidden
+                className="absolute inset-x-[-14%] bottom-[-7%] h-[26%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgb(0_0_0/0.85),rgb(0_0_0/0.45)_45%,transparent_72%)]"
+              />
               <motion.img
                 src={ballSrc}
                 alt=""
                 width={600}
                 height={600}
                 style={{ transform: ballRollTransform }}
-                className="floor-reflect aspect-square w-full rounded-full [filter:drop-shadow(0_24px_30px_rgb(0_0_0/0.9))_drop-shadow(0_0_50px_rgb(59_130_246/0.28))]"
+                className="relative aspect-square w-full rounded-full [backface-visibility:hidden]"
               />
             </motion.div>
           </motion.div>
@@ -342,10 +366,10 @@ function ScatterPin({
 
   return (
     <motion.div
-      style={{ ...base, transform: pinTransform, opacity }}
+      style={{ ...base, transform: pinTransform, opacity, willChange: 'transform, opacity' }}
       className="absolute w-[19%] -translate-x-1/2"
     >
-      <Pin className="w-full drop-shadow-[0_5px_8px_rgb(0_0_0/0.65)]" />
+      <Pin className="w-full" />
     </motion.div>
   )
 }
@@ -355,8 +379,11 @@ function SceneBackdrop() {
   return (
     <div className="absolute inset-0 -z-10" aria-hidden>
       <div className="absolute inset-0 bg-ink-950" />
-      <div className="light-flicker absolute left-1/2 top-[8%] size-[42rem] -translate-x-1/2 rounded-full bg-electric-600/16 blur-[130px]" />
-      <div className="absolute -right-32 top-[30%] size-[26rem] rounded-full bg-violetglow-500/12 blur-[120px]" />
+      {/* Painted gradients, not blurred boxes: a 130px blur over a 42rem
+          element costs more per frame than everything else in the scene
+          combined, and reads identically at this softness. */}
+      <div className="light-flicker absolute inset-0 bg-[radial-gradient(ellipse_60%_38%_at_50%_16%,rgb(37_99_235/0.20),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_38%_30%_at_100%_38%,rgb(139_92_246/0.16),transparent_72%)]" />
       {/* horizon: the dark mouth of the pin deck */}
       <div className="absolute inset-x-0 top-[54%] h-[8vh] bg-gradient-to-b from-transparent via-ink-900 to-transparent sm:top-[46%]" />
     </div>
@@ -372,7 +399,7 @@ function PinDeck() {
     >
       {PIN_LAYOUT.map((pin, i) => (
         <div key={i} style={pinStyle(pin)} className="absolute w-[19%] -translate-x-1/2">
-          <Pin className="w-full drop-shadow-[0_5px_8px_rgb(0_0_0/0.65)]" />
+          <Pin className="w-full" />
         </div>
       ))}
     </div>

@@ -83,6 +83,31 @@
   }
 }
 
+/* Touch-device budget for the vendored GlowCard (src/components/ui/
+   spotlight-card.tsx is kept verbatim, so this is tuned from the outside).
+   `background-attachment: fixed` makes the browser re-resolve the gradient
+   against the viewport on every scrolled frame — four of those plus a
+   backdrop blur is the single worst scroll cost on the page. The spotlight
+   tracks a pointer that a touch device does not have, so nothing is lost. */
+@media (pointer: coarse) {
+  /* The prefixed property is written first on purpose: with the standard one
+     first, the minifier collapses the pair down to the -webkit- variant alone
+     and Chromium keeps painting the blur. */
+  [data-glow] {
+    background-attachment: scroll !important;
+    background-image: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color: var(--color-ink-850) !important;
+  }
+
+  [data-glow]::before,
+  [data-glow]::after,
+  [data-glow] [data-glow] {
+    display: none !important;
+  }
+}
+
 /* Press feedback. Anything the user can click should acknowledge the press
    within ~150ms, otherwise the interface feels like it isn't listening. */
 @utility pressable {
@@ -102,9 +127,19 @@
     rgb(255 255 255 / 0.02) 45%,
     rgb(255 255 255 / 0.045) 100%
   );
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
   border: 1px solid rgb(255 255 255 / 0.1);
+
+  /* backdrop-filter re-samples everything under the panel on every scrolled
+     frame, which is the wrong trade on a phone for a panel sitting on a flat
+     dark ground. Fine pointers keep the frost. */
+  @media (pointer: fine) {
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  @media (pointer: coarse) {
+    background-color: rgb(255 255 255 / 0.04);
+  }
 }
 
 /* Realistic floor reflection. Non-standard but supported across

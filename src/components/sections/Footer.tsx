@@ -25,7 +25,8 @@ const socials = [
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/8 bg-ink-950">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full bg-electric-600/10 blur-[100px]" />
+      {/* painted, not blurred — a 100px blur costs real milliseconds at DPR 3 */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_50%_100%_at_50%_0%,rgb(37_99_235/0.14),transparent_70%)]" />
 
       {/* the venue's name as the room's back wall */}
       <p
