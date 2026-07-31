@@ -41,36 +41,39 @@ export function Team() {
           lead="O echipă mică, atentă la detalii — de la starea pistelor până la ultimul cocktail de pe bar."
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3 lg:gap-8">
-          {team.map((member, index) => {
-            const Icon = member.icon
-            return (
-              <Reveal
-                key={member.role}
-                as="article"
-                delay={index * STAGGER}
-                distance={24}
-                className="group relative overflow-hidden rounded-2xl bg-ink-850 p-8 ring-1 ring-white/8 transition-[translate,box-shadow] duration-200 ease-out-strong hover:-translate-y-2 hover:shadow-[0_24px_50px_-24px_rgb(0_0_0/0.9)]"
-              >
-                {/* light sweeping across the card face on hover */}
-                <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/6 to-transparent transition-transform duration-600 ease-out-strong group-hover:translate-x-full" />
+        {/* one roster panel, rows split by hairlines — the staff bench, not a card grid */}
+        <Reveal className="mt-14">
+          <div className="divide-y divide-white/8 overflow-hidden rounded-2xl bg-ink-850 ring-1 ring-white/8">
+            {team.map((member, index) => {
+              const Icon = member.icon
+              return (
+                <Reveal
+                  key={member.role}
+                  as="article"
+                  delay={index * STAGGER}
+                  distance={16}
+                  className="group relative grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-1 px-6 py-7 transition-colors duration-200 ease-out hover:bg-white/[0.035] sm:grid-cols-[auto_minmax(14rem,18rem)_1fr] sm:gap-x-8 sm:px-9"
+                >
+                  {/* the room's light leans in when you lean on a row */}
+                  <div className="pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-electric-500/12 to-transparent opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100" />
 
-                <div className="relative">
-                  <span className={`grid size-14 place-items-center rounded-2xl ring-1 ${member.accent}`}>
-                    <Icon className="size-6" />
+                  <span
+                    className={`row-span-2 grid size-12 place-items-center rounded-xl ring-1 sm:row-span-1 sm:size-14 sm:rounded-2xl ${member.accent}`}
+                  >
+                    <Icon className="size-5 sm:size-6" />
                   </span>
 
-                  <h3 className="mt-7 font-display text-lg font-bold leading-snug text-white">
+                  <h3 className="font-display text-base font-bold leading-snug text-white sm:text-lg">
                     {member.role}
                   </h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-white/60">
+                  <p className="col-start-2 text-[0.95rem] leading-relaxed text-white/60 sm:col-start-3">
                     {member.tagline}
                   </p>
-                </div>
-              </Reveal>
-            )
-          })}
-        </div>
+                </Reveal>
+              )
+            })}
+          </div>
+        </Reveal>
       </div>
     </section>
   )

@@ -111,7 +111,7 @@ function Pin({ className }: { className?: string }) {
 function Lane() {
   return (
     <div className="absolute inset-x-0 bottom-0 top-[54%] sm:top-[46%]" aria-hidden>
-      <div className="absolute inset-x-[16%] inset-y-0 [perspective:700px] sm:inset-x-[22%]">
+      <div className="absolute inset-x-[16%] inset-y-0 [perspective:700px] sm:left-[30%] sm:right-[14%]">
         <div
           className="absolute inset-x-0 top-0 h-[135%] origin-top [transform:rotateX(54deg)]"
           style={{
@@ -243,7 +243,7 @@ export function StrikeHero() {
 
           {/* pin triangle standing on the lane's far edge */}
           <div
-            className="absolute left-1/2 top-[48%] z-[5] h-[8vh] w-[92px] -translate-x-1/2 sm:top-[37%] sm:h-[9.5vh] sm:w-[120px]"
+            className="absolute left-1/2 top-[48%] z-[5] h-[8vh] w-[92px] -translate-x-1/2 sm:left-[58%] sm:top-[37%] sm:h-[9.5vh] sm:w-[120px]"
             aria-hidden
           >
             {PIN_LAYOUT.map((pin, i) => {
@@ -255,7 +255,7 @@ export function StrikeHero() {
           {/* the ball, foreground, ready to roll */}
           <motion.div
             style={{ transform: ballTransform, opacity: ballOpacity, transformOrigin: '50% 100%' }}
-            className="absolute bottom-[3vh] left-1/2 z-10 w-[19vh] max-w-[230px] -translate-x-1/2 sm:w-[24vh]"
+            className="absolute bottom-[3vh] left-1/2 z-10 w-[19vh] max-w-[230px] -translate-x-1/2 sm:left-[58%] sm:w-[24vh]"
           >
             <motion.div
               initial={{ opacity: 0, transform: 'translateY(-70vh)' }}
@@ -268,7 +268,7 @@ export function StrikeHero() {
                 width={600}
                 height={600}
                 style={{ transform: ballRollTransform }}
-                className="aspect-square w-full rounded-full [filter:drop-shadow(0_24px_30px_rgb(0_0_0/0.9))_drop-shadow(0_0_50px_rgb(59_130_246/0.28))]"
+                className="floor-reflect aspect-square w-full rounded-full [filter:drop-shadow(0_24px_30px_rgb(0_0_0/0.9))_drop-shadow(0_0_50px_rgb(59_130_246/0.28))]"
               />
             </motion.div>
           </motion.div>
@@ -276,7 +276,7 @@ export function StrikeHero() {
           {/* impact flash */}
           <motion.div
             style={{ opacity: flashOpacity }}
-            className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_55%_45%_at_50%_42%,rgb(219_234_254/0.95),rgb(59_130_246/0.35)_55%,transparent_80%)]"
+            className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_55%_45%_at_50%_42%,rgb(219_234_254/0.95),rgb(59_130_246/0.35)_55%,transparent_80%)] sm:bg-[radial-gradient(ellipse_55%_45%_at_58%_42%,rgb(219_234_254/0.95),rgb(59_130_246/0.35)_55%,transparent_80%)]"
             aria-hidden
           />
 
@@ -366,7 +366,7 @@ function SceneBackdrop() {
 function PinDeck() {
   return (
     <div
-      className="absolute left-1/2 top-[48%] z-[5] h-[8vh] w-[92px] -translate-x-1/2 sm:top-[37%] sm:h-[9.5vh] sm:w-[120px]"
+      className="absolute left-1/2 top-[48%] z-[5] h-[8vh] w-[92px] -translate-x-1/2 sm:left-[58%] sm:top-[37%] sm:h-[9.5vh] sm:w-[120px]"
       aria-hidden
     >
       {PIN_LAYOUT.map((pin, i) => (

@@ -11,7 +11,7 @@ export function Contact() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeading
-          title="Ne găsești în centrul Bacăului"
+          title="Ne găsești pe Str. Republicii 194bis"
           lead="Sună-ne pentru rezervări sau treci direct pe la noi — pistele te așteaptă."
         />
 
@@ -28,7 +28,7 @@ export function Contact() {
                   <Phone className="size-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-xs uppercase tracking-widest text-white/40">
+                  <p className="text-xs uppercase tracking-widest text-white/55">
                     Telefon & Rezervări
                   </p>
                   <p className="mt-2 whitespace-nowrap font-display text-xl font-semibold text-white transition-colors group-hover:text-electric-400 sm:text-2xl">
@@ -48,7 +48,7 @@ export function Contact() {
                   <MapPin className="size-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-xs uppercase tracking-widest text-white/40">
+                  <p className="text-xs uppercase tracking-widest text-white/55">
                     Adresă
                   </p>
                   <p className="mt-2 font-display text-lg font-semibold leading-snug text-white">

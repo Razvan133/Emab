@@ -46,7 +46,7 @@ export function Footer() {
                 Emab<span className="text-white/45"> Bowling</span>
               </span>
             </a>
-            <p className="mt-4 text-sm text-white/45">
+            <p className="mt-4 text-sm text-white/55">
               Bowling, darts, foosball & bar în {site.city}.
             </p>
           </div>
@@ -78,7 +78,7 @@ export function Footer() {
                 </a>
               ))}
             </div>
-            <div className="flex flex-col items-center gap-1.5 text-sm text-white/45 md:items-end">
+            <div className="flex flex-col items-center gap-1.5 text-sm text-white/55 md:items-end">
               <a
                 href={site.phoneHref}
                 className="inline-flex items-center gap-2 transition-colors duration-200 ease-out hover:text-white"
@@ -94,12 +94,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/8 pt-7 text-xs text-white/35 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/8 pt-7 text-xs text-white/55 sm:flex-row">
           <p>
             © {new Date().getFullYear()} {site.name} {site.city}. Toate drepturile
             rezervate.
           </p>
-          <p>Rezervări zilnic, la telefon.</p>
+          <p>Rezervări la telefon.</p>
         </div>
       </div>
     </footer>
