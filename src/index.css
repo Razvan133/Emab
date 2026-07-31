@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Deep anthracite base */
+  --color-ink-950: #050507;
+  --color-ink-900: #0a0a0d;
+  --color-ink-850: #0e0e13;
+  --color-ink-800: #131319;
+  --color-ink-700: #1c1c24;
+  --color-ink-600: #2a2a35;
+
+  /* Elegant accents */
+  --color-electric-400: #60a5fa;
+  --color-electric-500: #3b82f6;
+  --color-electric-600: #2563eb;
+  --color-violetglow-400: #a78bfa;
+  --color-violetglow-500: #8b5cf6;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: rgb(255 255 255 / 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: rgb(255 255 255 / 0.92);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgb(59 130 246 / 0.35);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-700);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-600);
+  }
+}
+
+/* Bright-to-accent text wash used on headlines */
+@utility text-gradient {
+  background-image: linear-gradient(120deg, #ffffff 0%, #d4dced 42%, var(--color-electric-400) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Fine grid backdrop behind the hero */
+@utility bg-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Realistic floor reflection for the hero ball. `-webkit-box-reflect` is
+   non-standard but supported across Chromium/WebKit; elsewhere it simply
+   degrades to no reflection. */
+@utility floor-reflect {
+  -webkit-box-reflect: below 10px
+    linear-gradient(to bottom, transparent 45%, rgb(0 0 0 / 0.32));
+}
+
+/* Frosted panel used by the team cards */
+@utility glass-panel {
+  background-image: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.075) 0%,
+    rgb(255 255 255 / 0.02) 45%,
+    rgb(255 255 255 / 0.045) 100%
+  );
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

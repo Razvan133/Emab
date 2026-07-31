@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Bilă de bowling">
+  <defs>
+    <radialGradient id="sphere" cx="34%" cy="27%" r="82%">
+      <stop offset="0%" stop-color="#333d55" />
+      <stop offset="30%" stop-color="#1a1f2d" />
+      <stop offset="62%" stop-color="#0b0d14" />
+      <stop offset="100%" stop-color="#04050a" />
+    </radialGradient>
+
+    <!-- Edge-only rim light: fully transparent until the outer 20% -->
+    <radialGradient id="rim" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0" />
+      <stop offset="80%" stop-color="#3b82f6" stop-opacity="0" />
+      <stop offset="93%" stop-color="#3b82f6" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.5" />
+    </radialGradient>
+
+    <radialGradient id="specular" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92" />
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="hole" cx="40%" cy="32%" r="75%">
+      <stop offset="0%" stop-color="#0b0e16" />
+      <stop offset="65%" stop-color="#020306" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <linearGradient id="holeRing" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28" />
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <filter id="soften" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16" />
+    </filter>
+
+    <clipPath id="ballClip">
+      <circle cx="256" cy="256" r="240" />
+    </clipPath>
+  </defs>
+
+  <circle cx="256" cy="256" r="240" fill="url(#sphere)" />
+
+  <g clip-path="url(#ballClip)">
+    <!-- broad sheen across the lit side -->
+    <ellipse cx="188" cy="146" rx="172" ry="92" fill="url(#specular)" opacity="0.4"
+             transform="rotate(-26 188 146)" />
+    <!-- primary specular highlight -->
+    <ellipse cx="162" cy="128" rx="58" ry="36" fill="url(#specular)"
+             transform="rotate(-30 162 128)" />
+    <!-- secondary glint -->
+    <ellipse cx="118" cy="192" rx="18" ry="9" fill="#ffffff" opacity="0.14"
+             transform="rotate(-34 118 192)" />
+
+    <!-- bounced accent light along the lower-right shoulder -->
+    <ellipse cx="360" cy="378" rx="150" ry="86" fill="#3b82f6" opacity="0.26"
+             filter="url(#soften)" transform="rotate(-32 360 378)" />
+    <ellipse cx="404" cy="300" rx="96" ry="54" fill="#8b5cf6" opacity="0.2"
+             filter="url(#soften)" transform="rotate(-48 404 300)" />
+
+    <!-- finger holes, clustered and tilted like a real drilled ball -->
+    <g transform="rotate(-32 236 214)">
+      <ellipse cx="196" cy="208" rx="22" ry="26" fill="url(#hole)" />
+      <ellipse cx="196" cy="208" rx="22" ry="26" fill="none" stroke="url(#holeRing)" stroke-width="3.5" />
+
+      <ellipse cx="262" cy="192" rx="21" ry="25" fill="url(#hole)" />
+      <ellipse cx="262" cy="192" rx="21" ry="25" fill="none" stroke="url(#holeRing)" stroke-width="3.5" />
+
+      <ellipse cx="232" cy="268" rx="26" ry="30" fill="url(#hole)" />
+      <ellipse cx="232" cy="268" rx="26" ry="30" fill="none" stroke="url(#holeRing)" stroke-width="3.5" />
+    </g>
+  </g>
+
+  <circle cx="256" cy="256" r="240" fill="url(#rim)" />
+  <circle cx="256" cy="256" r="239" fill="none" stroke="#ffffff" stroke-opacity="0.09" stroke-width="2" />
+</svg>
